@@ -1,0 +1,87 @@
+class Solution {
+    private int[] minHeap;
+    private int size;
+
+    public int minimumOperations(int[] nums) {
+        size = 0;
+        minHeap = new int[nums.length + 1];
+        minHeap[0] = Integer.MIN_VALUE;
+
+        for (int n:nums) {
+            if (n != 0) {
+                insert(n);
+            }
+        }
+
+
+        int count = 0;
+        int prev = 0;
+        while (size > 0) {
+            int curr = removeMin();
+            if (curr > prev) {
+                count++;
+                prev = curr;
+            }
+        }
+
+        return count;
+    }
+
+    public void insert(int elem) {
+        size++;
+        minHeap[size] = elem;
+        int curr = size;
+
+        while (minHeap[curr] < minHeap[curr/2]) {
+            swap(curr, curr/2);
+            curr = curr/2;
+        }
+    }
+
+    public void swap(int pos1, int pos2) {
+        if (pos1 <= 0 || pos2 <= 0) {
+            System.out.println("Can't swap 0 or negative positions");
+            return;
+        }
+
+        int temp = minHeap[pos1];
+        minHeap[pos1] = minHeap[pos2];
+        minHeap[pos2] = temp;
+    }
+
+    public int removeMin(){
+        if (size == 0){
+            System.out.println("Can't remove from empty list");
+            return -1; 
+        }
+
+        swap(1, size);
+        size--;  	 
+
+        if (size != 0) {
+            pushDown(1);  
+        }
+
+        return minHeap[size + 1];
+    }
+
+    public void pushDown(int pos1) {
+        while (pos1*2 <= size) {
+            int rightChild = pos1*2 + 1;
+            int leftChild = pos1*2;
+            int smallestChild = leftChild;
+
+            if (rightChild <= size && minHeap[rightChild] < minHeap[leftChild]) {
+                smallestChild = rightChild;
+            }
+
+            if (minHeap[pos1] <= minHeap[smallestChild]) {
+                break;
+            }
+
+            swap(pos1, smallestChild);
+            pos1 = smallestChild;
+        }
+
+    }
+}
