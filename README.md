@@ -7,5 +7,4 @@ solving priority queues/min heaps problems
 
 2357) https://leetcode.com/problems/make-array-zero-by-subtracting-equal-amounts/?envType=problem-list-v2&envId=heap-priority-queue 
 
-
-  if that link doesn't work maybe try "https://leetcode.com/problem-list/heap-priority-queue/" and scroll to problem 2357
+    if that link doesn't work maybe try "https://leetcode.com/problem-list/heap-priority-queue/" and scroll to problem 2357
